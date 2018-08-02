@@ -1,0 +1,20 @@
+package test
+import com.drools.model.Customer
+rule "rule1"
+    salience 1
+    when
+        $customer:Customer(age>30, gender)
+    then
+       System.out.println("年龄大于30的，老男人"+$customer.getName());
+end
+
+
+import com.drools.model.Customer
+rule "rule1"
+    salience 2
+    when
+        $customer:Customer(age<28, !gender,age>18)
+    then
+       System.out.println("18到28，小美女"+$customer.getName());
+end
+

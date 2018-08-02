@@ -1,4 +1,4 @@
-package com.drools;
+package com.drools.test;
 
 import com.drools.utils.Constants;
 import org.drools.KnowledgeBase;
