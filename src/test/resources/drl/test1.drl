@@ -9,8 +9,8 @@ rule "rule1"
 end
 
 
-import com.drools.model.Customer
-rule "rule1"
+
+rule "rule2"
     salience 2
     when
         $customer:Customer(age<28, !gender,age>18)

@@ -6,6 +6,13 @@ package com.drools.model;
  * https://wenku.baidu.com/view/9776af9031b765ce04081455.html
  */
 public class Customer {
+
+    public Customer(String name, int age, Boolean gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
     private String name;
     private int age;
     //true为男，false 女
