@@ -1,0 +1,10 @@
+    一.Drools的API总体分为三类：规则编译，规则收集，规则执行。
+        1.KnowledgeBuilder:用来收集已经编写好的规则文件，然后对这些规则文件进行编译，最终生成一批编译好的规则包（KnowledgePackage）
+    给其他的应用程序使用。
+        2.KnowledgeBase:用来收集应用中的只是（Knowledge，编译好的规则包），在一个KnowledgeBase当中可以包含普通规则，规则流，函数
+    定义，用户自定义对象等。KnowledgeBase不包含任何业务数据对象（Fact）。
+        3.业务数据对象（fact对象）都是插入到由KnowledgeBase产生的两种类型的session对象当中（StatefulKnowledgeSession和
+    StatelessKnowledgeSession），这两种Session的作用是与规则引擎进行交互。
+        4.Fact对象:
+            i.一个普通的JavaBean插入到规则的WorkingMemory后的对象。
+            ii.Fact插入到WorkingMemory后，会返回一个FactHandler对象，是可以对Fact对象进行操作的句柄。
