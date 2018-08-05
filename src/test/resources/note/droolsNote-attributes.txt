@@ -1,0 +1,43 @@
+    1.Drools5中规则属性共有13个，分别是：activation-group，agenda-group，auto-focus，date-effective，date-expires，dialect，
+duration，enabled，lock-on-active，no-loop，ruleflow-group，salience，when。
+    2.salience：用于设置规则的优先级，默认是0，数字越大执行优先级越高，值可以是负数。
+    3.no-loop：用来控制已执行过的规则在条件再次满足时是否再次执行（针对当前规则生效）。
+    4.enabled：表示规则是否可用，true可用，false不可用。
+    5.dialect：定义规则中要使用的语言类型。默认是java。
+
+    **6.activetion-group
+        i.该属性的作用是将若干个规则划分为一个组，用一个字符串来给这个组命名，这样在执行的时候，具有相同的activation-group属性的
+    规则中，只要又一个会被执行，其他的规则都将不执行。
+        ii.同组相斥，类似于 if...else if ... else if ...
+
+    **7.agenda-group
+        i.这个属性也是对规则分组，用该属性组的规则，需要用户手激活才能使用
+        ii.特点是：规则分组，手动激活，[按优先级顺序执行所有规则]
+
+    **8.lock-on-active
+        i.当使用*-group组属性时，如 agenda-group，activation-group，在lock-on-action设置为true，可以避免因某些Fact对象
+    因为别修改，而导致已经执行过的规则再次被激活执行。
+        ii.只能和 *-group组属性一起使用，是no-loop属性的升级版。no-loop属性管理单个规则，而lock-on-active管理着规则组。
+
+    **9.Drools函数
+        i.以function标记开头，以java代码书写
+            function void/Object functionName(Type arg...){...}
+        ii.作用域：规则文件里定义的函数，作用域只能在本规则文件内有效，可以使用import function引入。
+
+    **10.query查询
+        i.Drools中查询以query关键字开始，以end结束。
+        ii.主要作用是对Working Memory里的fact对象进行统计及查询。
+        iii.实例
+        无参数：    query "query name"
+                        #conditions
+                   end
+                   --
+                   query "testQuery"
+                        customer:Customer(age>30,orders.szie>10);
+        有参数：   query "query name"(Object obj)
+                        #conditions
+                  end;
+
+                  query "testQuery"(int $age,String $gender)
+                        customer:Customer(age>$age,gender==$gender)
+                  end

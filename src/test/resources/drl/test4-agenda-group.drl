@@ -2,7 +2,7 @@ package test
 import com.drools.model.Customer
 rule "rule1"
     salience 3
-//    activation-group "test"
+    agenda-group "test"
     when
         $customer:Customer(age>30, gender)
     then
@@ -13,7 +13,7 @@ end
 
 rule "rule2"
     salience 2
-//    activation-group "test"
+    agenda-group "test"
     when
         $customer:Customer(age<28, !gender,age>18)
     then
@@ -22,7 +22,7 @@ end
 
 rule "rule3"
     salience 1
-//    activation-group "test"
+    agenda-group "test"
     when
         $customer:Customer(gender)
     then

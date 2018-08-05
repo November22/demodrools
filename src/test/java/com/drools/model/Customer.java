@@ -41,4 +41,13 @@ public class Customer {
     public void setGender(Boolean gender) {
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                '}';
+    }
 }

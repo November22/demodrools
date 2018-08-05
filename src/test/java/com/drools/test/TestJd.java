@@ -22,7 +22,9 @@ import java.util.Collection;
 public class TestJd {
     public static void main(String[] args) {
         KnowledgeBuilder kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
-        kb.add(new ClassPathResource("drl/test2.drl"),ResourceType.DRL);
+//        kb.add(new ClassPathResource("drl/test2.drl"),ResourceType.DRL);
+        //测试 activation-group 和 宏函数
+        kb.add(new ClassPathResource("drl/test3.drl"),ResourceType.DRL);
         Collection<KnowledgePackage> kp = kb.getKnowledgePackages();
         //验证错误信息
         if(kb.hasErrors()){

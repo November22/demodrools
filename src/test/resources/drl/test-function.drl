@@ -1,0 +1,13 @@
+package fucTest
+
+rule functiontest
+
+    when
+        eval(true)
+    then
+         fucName(3,4);
+    end
+
+    function void fucName(int i,int j){
+        System.out.println("result:"+(i+j));
+    }
