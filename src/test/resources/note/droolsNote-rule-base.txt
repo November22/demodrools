@@ -1,0 +1,71 @@
+    1.规则文件的一些关键字
+        a.package
+        b.import
+        c.globals：全局变量声明
+        d.function：函数的声明
+        e.queries：查询用
+        f.rules：规则
+
+    2.规则
+        一个规则（rule）由规则名称，属性部分（attributes），条件部分(lhs)和结果部分(rhs)组成。
+        PS:属性部分有 salience <int> , agenda-group <String> ,no-loop <boolean>,auto-focus <boolean>,duration <long>,
+    ruleflow-group <String>
+
+    3.条件lhs
+        a.可以包含0～n个条件，条件为空，引擎会自动添加一个eval(true)，该条件返回为true。
+        b.条件又被成为pattern（匹配模式），多个pattern之间可以用 and或or连接
+            语法格式：[绑定变量名:]Object([field约束]) 实例：$customer:Customer(age>30)
+            其中[绑定变量名:]和[field约束]都可以省略（PS:如果想在结果条件中使用，那就的加上）
+
+    4.约束条件
+        a.采用"&&（and）"，"||（or）"，",（and）"来时间对象对象内部多个约束，没有小括号约束时，
+    优先级时："&&"，"||"，","
+        b.","不能和"&&"和"||"混合使用。
+    5.比较操作符
+        a.共12种：>,>=,<,<=,==,!=,contains,not contains,memberof,not memberof,matches,not matches。
+        b.contains：用来检查Fact对象的某个字段（【该字段需要是一个Collection或Array】）是否包含一个指定的对象。
+            实例：
+                $order:Order();
+                $customer:Customer(age>20,orders contains $order)
+        c.memberOf：用来判断某个Fact对象的某个字段是否在一个集合当中。
+        d.matches是用来对莫哥Fact的字段与标准的Java正则表达式进行相似匹配的。
+
+    6.结果部分
+        只有在lhs的所有条件都满足时，rhs部分才会执行。
+        在rhs提供了对当前Working Memory实现快速操作的宏函数或对象
+            -insert/insertLogical,update/retract
+        Drools还提供了一个名为kcontext的宏对象。Kcontext宏对象可以直接访问Working Memory的KnowledgeRuntime。
+        **a.insert宏函数
+            i.与Java类中StatefulKnowledgeSession对象的insert方法作用相同，都是将一个Fact对象插入到当前的Working Memory当中。
+            ii.基本格式：insert(new Object());
+            iii.[一旦调用insert宏函数，那么Drools会重新与所有的规则在重新匹配一次，对于没有设置[no-loop=true]的规则，如果条件
+        满足，不管之前是否执行过都会再执行一次]。
+            iv.update和retract宏函数透贵阳具有该特性。
+        **b.update宏函数
+            i.用来实现对当前Working Memory当中的Fact进行更新。
+        **c.retract宏函数
+            i.用来将Working Memory当中某个Fact对象从Working Memory当中删除。
+        **d.Modify表达式
+            i.Modify表达式可以快速实现对Fact对象多个属性进行修改，修改完成后会【自动更新】到当前的Working Memory当中。
+                实例：     modify($customer){
+                              setAge(12),
+                              setGender(true)
+                          }
+
+        insert,update,retract,modify注意事项：
+            i.他们都能使Working Memory里的Fact对象发生变化。
+            ii.都会自动调用fireAllRules()方法，自动chuff规则的执行。
+            iii.触发规则时，【若 no-loop=true，新改变的fact对象，会对【非自身】的其他所有规则重新匹配一次】
+            v.触发规则时，【若no-loop=false，新改变的fact对象，会对【所有规则包括自身】重新匹配一次】
+            iv.no-loop属性，【只对自身触发的负责有用】。
+
+
+
+
+
+
+
+
+
+
+

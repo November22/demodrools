@@ -1,0 +1,39 @@
+    package jiedi;
+    import com.drools.model.Fact;
+    import com.drools.model.Result;
+    import java.math.BigDecimal;
+    global com.drools.model.Result rt;
+
+    rule jd1
+    when
+        $fact:Fact(orderAmount.compareTo(new BigDecimal("100"))<1 ,orderAmount.compareTo(new BigDecimal("0"))>0);
+    then
+        rt.addFee($fact.getOrderAmount().multiply(new BigDecimal("0.5")));
+        System.out.println("100内的Fee:"+rt.getFee());
+
+    end
+
+    rule jd2
+    when
+        $fact:Fact(orderAmount.compareTo(new BigDecimal("100"))==1 ,orderAmount.compareTo(new BigDecimal("200"))<1);
+    then
+        rt.addFee($fact.getOrderAmount().subtract(new BigDecimal("100")).multiply(new BigDecimal("0.2")));
+        System.out.println("100到200的Fee:"+rt.getFee());
+        modify($fact){
+            setOrderAmount( $fact.getOrderAmount().subtract(new BigDecimal("100")))
+        }
+    end
+
+    rule jd3
+    when
+        $fact:Fact(orderAmount.compareTo(new BigDecimal("200"))==1);
+    then
+        rt.addFee($fact.getOrderAmount().subtract(new BigDecimal("200")).multiply(new BigDecimal("0.1")));
+        System.out.println("大于200的Fee:"+rt.getFee());
+        modify($fact){
+            setOrderAmount(new BigDecimal("200"))
+        }
+    end
+
+
+
