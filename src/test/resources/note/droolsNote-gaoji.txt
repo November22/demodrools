@@ -1,0 +1,22 @@
+    1.议程：当一个规则完全被匹配，一个Activation（活动）被创建，引用的规则和匹配的事实，被放到议程中。
+        a.议程是通过使用冲突解决策略控制这些活动的执行顺序。
+        b.冲突解决方案
+            i.Salience：
+            ii.AgendaGroup：
+            iii.ActivationGroup：
+            iv.RuleFlowGroup：
+        c.议程过滤器(AgendaFilters)
+            i.运行或阻止活动的引发
+            ii.实现AgendaFilter接口
+                已有实现：RuleNameEqualsAgendaFilter
+                实例：session.fireAllRules(new RuleNameEndsWithAgendaFilter("test"));
+
+        d.事件模式
+            i.规则引擎事件 用于通知规则引擎事件，包括引发规则，断言对象等等。
+            ii.AgendaEventListener
+                是引擎运行过程中Agenda管理调配规则发生的一些事件
+            iii.WorkingMemoryEventListener
+                针对某个fact 操作的监听器
+        session.addEventListener(...);
+
+
