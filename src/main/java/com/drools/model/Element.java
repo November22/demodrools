@@ -9,17 +9,17 @@ public class Element {
     /**
      * 输入元素的类型
      */
-    private String key;
+    protected String key;
 
     /**
      * 输入元素类型的名称
      */
-    private String name;
+    protected String name;
 
     /**
      * 加减乘除空
      */
-    private String operator;
+    protected String operator;
 
     /**
      * 下一个元素
